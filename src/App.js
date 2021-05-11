@@ -56,7 +56,7 @@ function App() {
       </Grid>
       <Grid item md={10}>
         {data[value] && (
-          <Table tableData={data[value]} label={value} treeLabel="list" />
+          <Table tableData={data[value]} gridTemplate={[2,2]} label={value} treeLabel="list" />
         )}
       </Grid>
     </Grid>
