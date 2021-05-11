@@ -28,7 +28,7 @@ export default class Table extends Component {
   };
 
   renderInnerTree = (obj, parentIndex, index) => {
-    const { treeLabel } = this.props;
+    const { treeLabel,gridTemplate } = this.props;
     const heads = this.getHead();
     return (
       <TreeItem
@@ -36,14 +36,14 @@ export default class Table extends Component {
         nodeId={"list" + parentIndex + "_" + index}
         label={
           <Grid container>
-            <Grid item md={2}>
+            <Grid item md={1}>
               <FormControlLabel
                 control={<Checkbox name="checkedB" color="primary" />}
               />
             </Grid>
             {heads.map((head, index) => {
               return (
-                <Grid key={"item" + parentIndex + "_" + index} item md={2}>
+                <Grid key={"item" + parentIndex + "_" + index} item md={gridTemplate[index]}>
                   {obj[head]}
                 </Grid>
               );
@@ -60,15 +60,15 @@ export default class Table extends Component {
   };
 
   render() {
-    const { tableData, treeLabel, label } = this.props;
+    const { tableData, treeLabel, label,gridTemplate } = this.props;
     const heads = this.getHead();
     return (
       <Fragment>
         <Grid container>
-          <Grid item md={2}></Grid>
+          <Grid item md={1}></Grid>
           {heads.map((head, index) => {
             return (
-              <Grid key={index} item md={2}>
+              <Grid key={index} item md={gridTemplate[index]}>
                 <strong>{head.toUpperCase()}</strong>
               </Grid>
             );
@@ -81,14 +81,14 @@ export default class Table extends Component {
           {tableData.map((row, index) => {
             const node = (
               <Grid container key={label + "_" + index}>
-                <Grid item md={2}>
+                <Grid item md={1}>
                   <FormControlLabel
                     control={<Checkbox name="checkedB" color="primary" />}
                   />
                 </Grid>
                 {heads.map((head, index) => {
                   return (
-                    <Grid key={"head" + index} item md={2}>
+                    <Grid key={"head" + index} item md={gridTemplate[index]}>
                       {row[head]}
                     </Grid>
                   );
