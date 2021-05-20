@@ -13,7 +13,10 @@ export default class Table extends Component {
 
   MinusSquare = () => {
     return (
-      <SvgIcon fontSize="inherit" style={{ width: 14, height: 14 }}>
+      <SvgIcon
+        fontSize="inherit"
+        style={{ color: "#68bb6e", width: 14, height: 14 }}
+      >
         <path d="M22.047 22.074v0 0-20.147 0h-20.12v0 20.147 0h20.12zM22.047 24h-20.12q-.803 0-1.365-.562t-.562-1.365v-20.147q0-.776.562-1.351t1.365-.575h20.147q.776 0 1.351.575t.575 1.351v20.147q0 .803-.575 1.365t-1.378.562v0zM17.873 11.023h-11.826q-.375 0-.669.281t-.294.682v0q0 .401.294 .682t.669.281h11.826q.375 0 .669-.281t.294-.682v0q0-.401-.294-.682t-.669-.281z" />
       </SvgIcon>
     );
@@ -21,29 +24,49 @@ export default class Table extends Component {
 
   PlusSquare = () => {
     return (
-      <SvgIcon fontSize="inherit" style={{ width: 14, height: 14 }}>
+      <SvgIcon
+        fontSize="inherit"
+        style={{ color: "#68bb6e", width: 14, height: 14 }}
+      >
         <path d="M22.047 22.074v0 0-20.147 0h-20.12v0 20.147 0h20.12zM22.047 24h-20.12q-.803 0-1.365-.562t-.562-1.365v-20.147q0-.776.562-1.351t1.365-.575h20.147q.776 0 1.351.575t.575 1.351v20.147q0 .803-.575 1.365t-1.378.562v0zM17.873 12.977h-4.923v4.896q0 .401-.281.682t-.682.281v0q-.375 0-.669-.281t-.294-.682v-4.896h-4.923q-.401 0-.682-.294t-.281-.669v0q0-.401.281-.682t.682-.281h4.923v-4.896q0-.401.294-.682t.669-.281v0q.401 0 .682.281t.281.682v4.896h4.923q.401 0 .682.281t.281.682v0q0 .375-.281.669t-.682.294z" />
       </SvgIcon>
     );
   };
 
   renderInnerTree = (obj, parentIndex, index) => {
-    const { treeLabel,gridTemplate } = this.props;
+    const { treeLabel, gridTemplate } = this.props;
     const heads = this.getHead();
+    const checkRef = React.createRef();
     return (
       <TreeItem
         key={parentIndex + "_" + index}
         nodeId={"list" + parentIndex + "_" + index}
+        style={{ borderBottom: "1px solid #e8e8e8" }}
         label={
           <Grid container>
             <Grid item md={1}>
               <FormControlLabel
-                control={<Checkbox name="checkedB" color="primary" />}
+               ref={checkRef}
+                control={
+                  <Checkbox
+                    ref={checkRef}
+                    onChange={(event) => {
+                      console.log(event);
+                      console.log(event.target.checked);
+                    }}
+                    name="checkedB"
+                    color="primary"
+                  />
+                }
               />
             </Grid>
             {heads.map((head, index) => {
               return (
-                <Grid key={"item" + parentIndex + "_" + index} item md={gridTemplate[index]}>
+                <Grid
+                  key={"item" + parentIndex + "_" + index}
+                  item
+                  md={gridTemplate[index]}
+                >
                   {obj[head]}
                 </Grid>
               );
@@ -60,11 +83,12 @@ export default class Table extends Component {
   };
 
   render() {
-    const { tableData, treeLabel, label,gridTemplate } = this.props;
+    const { tableData, treeLabel, label, gridTemplate,searchedKeyword } = this.props;
     const heads = this.getHead();
     return (
       <Fragment>
-        <Grid container>
+        <span style={{ color: "#68bb6e" }}>8 results found for `{searchedKeyword}`</span>
+        <Grid style={{ marginTop: "20px" }} container>
           <Grid item md={1}></Grid>
           {heads.map((head, index) => {
             return (
@@ -102,6 +126,7 @@ export default class Table extends Component {
                 key={index}
                 nodeId={"list" + index}
                 label={node}
+                style={{ borderBottom: "1px solid #e8e8e8" }}
               >
                 {row[treeLabel].map((sub, ind) => {
                   return this.renderInnerTree(sub, index, ind);
