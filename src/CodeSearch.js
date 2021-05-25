@@ -6,12 +6,10 @@ import {
   createMuiTheme,
   FormControl,
   Grid,
-  InputLabel,
   makeStyles,
   Select,
   TextField,
   ThemeProvider,
-  withStyles,
 } from "@material-ui/core";
 import { green, purple } from "@material-ui/core/colors";
 import SearchIcon from "@material-ui/icons/Search";
@@ -37,7 +35,8 @@ const DESCRIPTION = {
 const background = {
   backgroundColor: "#FFF",
   boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-  borderRadius: "10px",
+  width:"80%",
+  height:"60px"
 };
 
 const theme = createMuiTheme({
@@ -57,8 +56,8 @@ const useStyles = makeStyles({
 export default function CodeSearch() {
     const classes = useStyles();
   return (
-    <Grid container direction="row" justify="center" alignItems="center">
-      <Grid item md={8}>
+    <Container style={{height:"100vh","display":"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
+      <div style={{paddingLeft:"3%",paddingRight:"3%"}}>
         <p style={TITLE}>Code Search Library</p>
         <p style={DESCRIPTION}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
@@ -66,16 +65,15 @@ export default function CodeSearch() {
           et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis
           natoque penatibus et magnis dis parturient montes, nascetur
         </p>
-      </Grid>
-      <Grid item md={9} style={background}>
+      </div>
+      <div style={background}>
         <Grid container style={{ padding: "10px" }}>
-          <Grid md={3}>
-            <FormControl style={{ width: "100%" }} variant="outlined">
+          <Grid item md={3}>
+            <FormControl size="small" style={{ width: "100%" }} variant="outlined">
               <Select
                 native
-              
-              >
-                <option selected value="Condition">Condition</option>
+                value="Condition">
+                <option value="Condition">Condition</option>
                 <option value="Drugs">Drugs</option>
                 <option value="Procedures">Procedures</option>
               </Select>
@@ -83,6 +81,7 @@ export default function CodeSearch() {
           </Grid>
           <Grid item md={7}>
             <TextField
+            size="small"
               style={{ width: "100%" }}
               placeholder="asdf"
               variant="outlined"
@@ -91,7 +90,7 @@ export default function CodeSearch() {
           <Grid item md={2}>
             <ThemeProvider theme={theme}>
               <Button
-                style={{ width: "100%", height: "100%", color: "#fff" }}
+                style={{ width: "100%", height: "90%", color: "#fff" }}
                 variant="contained"
                 color="primary"
                 size="large"
@@ -102,7 +101,7 @@ export default function CodeSearch() {
             </ThemeProvider>
           </Grid>
         </Grid>
-      </Grid>
+      </div>
       <Grid
         container
         style={{marginTop:"20px"}}
@@ -114,6 +113,7 @@ export default function CodeSearch() {
           <Card  className={classes.root} variant="outlined"></Card>
           <Card  className={classes.root} variant="outlined"></Card>
       </Grid>
-    </Grid>
+   
+   </Container>
   );
 }
